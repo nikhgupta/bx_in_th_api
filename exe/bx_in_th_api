@@ -1,7 +1,4 @@
 #!/usr/bin/env ruby
 
-require "thor"
 require "bx_in_th_api"
-require "bx_in_th_api/cli"
-
-BxInThAPI::CLI.start ARGV
+puts "\e[31mNo CLI environment provided!\e[0m"

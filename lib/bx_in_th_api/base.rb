@@ -1,5 +1,10 @@
 module BxInThAPI
   class Base
+    include BxInThAPI::Public
+    include BxInThAPI::Private
+    include BxInThAPI::Options
+    include BxInThAPI::BillPayment
+
     attr_reader :api_key, :api_secret
 
     BASE_URL = "https://bx.in.th/api/"
@@ -8,32 +13,13 @@ module BxInThAPI
       @api_key, @api_secret = api_key, api_secret
     end
 
-    def get_balance
-      __private :balance
-    end
-
-    def create_order(pairing_id, type, amount, rate)
-      __private :order, params: { pairing: pairing_id, type: type, amount: amount, rate: rate }
-    end
-
-    def cancel_order(pairing_id, order_ids = [])
-      order_ids = [ order_ids ].flatten.join(",")
-      raise "No order ID specified!" if order_ids.blank?
-      __private :cancel, params: { pairing: pairing_id, order_id: order_ids }
-    end
-
-    def get_orders(pairing_id, type)
-      __private :getorders, params: { pairing: pairing_id, type: type }
-    end
-
     protected
 
-    def __private(url, params: {}, headers: {})
-      params = params.merge(api_auth_fields)
+    def __private(url, params = {}, headers = {})
       __request url, method: :post, params: params, headers: headers
     end
 
-    def __public(url, params: {}, headers: {})
+    def __public(url, params = {}, headers = {})
       __request url, method: :get, params: params, headers: headers
     end
 
