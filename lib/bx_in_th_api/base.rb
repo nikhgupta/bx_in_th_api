@@ -16,6 +16,7 @@ module BxInThAPI
     protected
 
     def __private(url, params = {}, headers = {})
+      params = params.merge(api_auth_fields)
       __request url, method: :post, params: params, headers: headers
     end
 
