@@ -25,6 +25,8 @@ module BxInThAPI
     end
 
     def __request(url, method: :get, params: {}, headers: {})
+      url = url.to_s << '/' unless url.to_s[-1] == '/'
+
       response = agent.send(method) do |req|
         req.url url.to_s
         req.headers = headers
