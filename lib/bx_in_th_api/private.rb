@@ -6,7 +6,7 @@ module BxInThAPI
 
     def cancel_order(pairing_id = 1, order_ids = [])
       order_ids = [ order_ids ].flatten.join(",")
-      raise "No order ID specified!" if order_ids.blank?
+      raise "No order ID specified!" if order_ids.strip.empty?
       __private :cancel, pairing: pairing_id, order_id: order_ids
     end
 
